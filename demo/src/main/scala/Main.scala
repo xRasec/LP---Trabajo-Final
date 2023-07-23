@@ -18,6 +18,17 @@ object TrabajoFinal {
     Usuario("Raa", "contra3")
   )
 
+  // Función para realizar el login del usuario
+  def login(): Boolean = {
+    println("Bienvenido al sistema de login en Scala")
+    println("Ingrese su nombre de usuario: ")
+    val nombreUsuario = readLine()
+    println("Ingrese su password: ")
+    val contrasena = readLine()
+
+    usuarios.exists(usuario => usuario.nombre == nombreUsuario && usuario.contrasena == contrasena)
+  }
+
    def main(args: Array[String]): Unit = {
     // Iniciar sesión
     if (login()) {
@@ -208,16 +219,5 @@ object TrabajoFinal {
     } else {
       println("Credenciales incorrectas. Saliendo del programa...")
     }
-}
-
-  // Función para realizar el login del usuario
-  def login(): Boolean = {
-    println("Bienvenido al sistema de login en Scala")
-    println("Ingrese su nombre de usuario: ")
-    val nombreUsuario = readLine()
-    println("Ingrese su password: ")
-    val contrasena = readLine()
-
-    usuarios.exists(usuario => usuario.nombre == nombreUsuario && usuario.contrasena == contrasena)
   }
 }
