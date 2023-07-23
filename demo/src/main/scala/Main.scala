@@ -2,7 +2,7 @@ import KMP.KMPMain
 import FB.FuerzaBrutaMain
 import BM.BoyerMooreMain
 import scala.io.StdIn.readLine
-import java.io.{File, PrintWriter}
+import java.io.File
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 
@@ -14,41 +14,9 @@ object TrabajoFinal {
   val usuarios: List[Usuario] = List(
     Usuario("Gian", "contra1"),
     Usuario("Nic", "contra2"),
-    Usuario("Meche", "haru"),
+    Usuario("Nath", "haru"),
     Usuario("Raa", "contra3")
   )
-
-  // Función para realizar el login del usuario
-  def login(): Boolean = {
-    println("Bienvenido al sistema de login en Scala")
-    println("Ingrese su nombre de usuario: ")
-    val nombreUsuario = readLine()
-    println("Ingrese su password: ")
-    val contrasena = readLine()
-
-    usuarios.exists(usuario => usuario.nombre == nombreUsuario && usuario.contrasena == contrasena)
-  }
-
-  def escribirEnHistorial(texto: String): Unit = {
-    val historialFile = new File("historial.txt")
-    val writer = new PrintWriter(historialFile, "UTF-8")
-    try {
-      // Leer contenido previo del archivo, si existe
-      val prevContent = Option(historialFile)
-        .filter(_.exists())
-        .map { file =>
-          val source = scala.io.Source.fromFile(file)
-          try source.getLines().mkString("\n") finally source.close()
-        }
-        .getOrElse("")
-
-      // Escribir el contenido previo más el nuevo texto al archivo
-      writer.append(prevContent)
-      writer.append(texto)
-    } finally {
-      writer.close()
-    }
-  }
 
    def main(args: Array[String]): Unit = {
     // Iniciar sesión
@@ -98,7 +66,6 @@ object TrabajoFinal {
                     println("Ingrese el patron a buscar:")
                     val pat = scala.io.StdIn.readLine()
                     val count = KMPMain.KMPSearch(pat, txt)
-                    escribirEnHistorial(s"El patron '$pat' aparece $count veces.\n")
                   case 2 =>
                     println("Ingrese la palabra a buscar:")
                     val palabra = scala.io.StdIn.readLine().toLowerCase()
@@ -124,7 +91,6 @@ object TrabajoFinal {
                     } else {
                       println("La palabra no se encontro en el texto.")
                     }
-                    escribirEnHistorial(s"La palabra '$palabra' aparece ${apariciones.length} veces.\n")
                   case 3 =>
                     println("Saliendo del programa...")
                   case _ =>
@@ -244,4 +210,14 @@ object TrabajoFinal {
     }
 }
 
+  // Función para realizar el login del usuario
+  def login(): Boolean = {
+    println("Bienvenido al sistema de login en Scala")
+    println("Ingrese su nombre de usuario: ")
+    val nombreUsuario = readLine()
+    println("Ingrese su password: ")
+    val contrasena = readLine()
+
+    usuarios.exists(usuario => usuario.nombre == nombreUsuario && usuario.contrasena == contrasena)
+  }
 }
