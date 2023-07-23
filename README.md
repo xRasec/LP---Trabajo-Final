@@ -17,7 +17,7 @@ Es un algoritmo eficiente para la búsqueda de patrones en una cadena de texto. 
 ### Descripción
 Es el método más sencillo para buscar patrones en un texto, ya que no requiere ningún procesamiento previo del patrón o el texto. La idea principal es comparar carácter por carácter el patrón y el texto, si se encuentra alguna discrepancia, el patrón se desplaza una posición a la derecha y se repite la comparación hasta encontrar una coincidencia o llegar al final del texto, en este proyecto será utilizado para comparación de algoritmos, en este proyecto será utilizado para comparación de algoritmos.
 
-### Instrucciones de Uso General
+## Instrucciones de Uso General
 1. Dirigirse al directorio con cd demo.
 2. Escribir `sbt compile` en la terminal.
 3. Escribir `sbt run` en la terminal.
