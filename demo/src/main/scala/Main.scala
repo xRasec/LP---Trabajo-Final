@@ -65,7 +65,7 @@ object TrabajoFinal {
             case 1 =>
               var orden = 0
               while (orden != 3) {
-                println("Seleccione una orden:")
+                println("Seleccione una opcion:")
                 println("1. Mostrar cantidad de apariciones del patron")
                 println("2. Mostrar seccion del texto donde figura la palabra ingresada")
                 println("3. Salir")
@@ -112,7 +112,7 @@ object TrabajoFinal {
             case 2 =>
               var orden = 0
               while (orden != 3) {
-                println("Seleccione una orden:")
+                println("Seleccione una opcion:")
                 println("1. Mostrar cantidad de apariciones del patron")
                 println("2. Mostrar seccion del texto donde figura la palabra ingresada")
                 println("3. Salir")
@@ -160,7 +160,7 @@ object TrabajoFinal {
             case 3 =>
               var orden = 0
               while (orden != 3) {
-                println("Seleccione una orden:")
+                println("Seleccione una opcion:")
                 println("1. Mostrar cantidad de apariciones del patron")
                 println("2. Mostrar seccion del texto donde figura la palabra ingresada")
                 println("3. Salir")
