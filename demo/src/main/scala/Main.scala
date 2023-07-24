@@ -16,7 +16,7 @@ object TrabajoFinal {
     Usuario("Giancarlo", "contra1"),
     Usuario("Nicole", "contra2"),
     Usuario("Meche", "haru"),
-    Usuario("Cesar", "contra3")
+    Usuario("Cesar", "teribol")
   )
 
   // Función para realizar el login del usuario
