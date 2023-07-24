@@ -3,6 +3,7 @@ import FB.FuerzaBrutaMain
 import BM.BoyerMooreMain
 import scala.io.StdIn.readLine
 import java.io.File
+import java.io.{FileWriter, PrintWriter}
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 
@@ -12,26 +13,40 @@ object TrabajoFinal {
 
   // Lista de usuarios (solo para propósitos del ejemplo)
   val usuarios: List[Usuario] = List(
-    Usuario("Gian", "contra1"),
-    Usuario("Nic", "contra2"),
-    Usuario("Nath", "haru"),
-    Usuario("Raa", "contra3")
+    Usuario("Giancarlo", "contra1"),
+    Usuario("Nicole", "contra2"),
+    Usuario("Meche", "haru"),
+    Usuario("Cesar", "contra3")
   )
 
   // Función para realizar el login del usuario
-  def login(): Boolean = {
+  def login(): (Boolean, String) = {
     println("Bienvenido al sistema de login en Scala")
     println("Ingrese su nombre de usuario: ")
     val nombreUsuario = readLine()
     println("Ingrese su password: ")
     val contrasena = readLine()
 
-    usuarios.exists(usuario => usuario.nombre == nombreUsuario && usuario.contrasena == contrasena)
+    usuarios.find(usuario => usuario.nombre == nombreUsuario && usuario.contrasena == contrasena) match {
+      case Some(usuarioEncontrado) => (true, usuarioEncontrado.nombre)
+      case None => (false, "")
+    }
   }
 
-   def main(args: Array[String]): Unit = {
+  def guardarRegistro(usuario: String, nombreArchivo: String, textoBuscado: String, algoritmo: String, resultado: String, tiempoEjecucion: Long): Unit = {
+    val registro = s"$usuario,$nombreArchivo,$textoBuscado,$algoritmo,$resultado,$tiempoEjecucion"
+    val pw = new PrintWriter(new FileWriter("historial.txt", true))
+    try {
+      pw.println(registro)
+    } finally {
+      pw.close()
+    }
+  }
+  
+  def main(args: Array[String]): Unit = {
     // Iniciar sesión
-    if (login()) {
+    val (inicioSesionExitoso, nombreUsuario) = login()
+    if (inicioSesionExitoso) {
       // Solicitar al usuario que ingrese la ubicación del archivo PDF
       println("Ingrese la ubicacion del archivo PDF:")
       val filePath = scala.io.StdIn.readLine()
@@ -76,7 +91,12 @@ object TrabajoFinal {
                   case 1 =>
                     println("Ingrese el patron a buscar:")
                     val pat = scala.io.StdIn.readLine()
+                    val startTime = System.currentTimeMillis()
                     val count = KMPMain.KMPSearch(pat, txt)
+                    val endTime = System.currentTimeMillis()
+                    val tiempoEjecucion = endTime - startTime
+                    println(s"La cantidad de apariciones de '$pat' es: $count")
+                    guardarRegistro(nombreUsuario, filePath, pat, "KMP", count.toString, tiempoEjecucion)
                   case 2 =>
                     println("Ingrese la palabra a buscar:")
                     val palabra = scala.io.StdIn.readLine().toLowerCase()
@@ -123,8 +143,12 @@ object TrabajoFinal {
                   case 1 =>
                     println("Ingrese el patron a buscar:")
                     val pat = scala.io.StdIn.readLine()
+                    val startTime = System.currentTimeMillis()
                     val count = FuerzaBrutaMain.buscarPatronFuerzaBruta(pat, txt)
+                    val endTime = System.currentTimeMillis()
+                    val tiempoEjecucion = endTime - startTime
                     println(s"La cantidad de apariciones de '$pat' es: $count")
+                    guardarRegistro(nombreUsuario, filePath, pat, "Fuerza Bruta", count.toString, tiempoEjecucion)
                   case 2 =>
                     println("Ingrese la palabra a buscar:")
                     val palabra = scala.io.StdIn.readLine().toLowerCase()
@@ -171,8 +195,12 @@ object TrabajoFinal {
                   case 1 =>
                     println("Ingrese el patron a buscar:")
                     val pat = scala.io.StdIn.readLine()
+                    val startTime = System.currentTimeMillis()
                     val count = BoyerMooreMain.BMsearch(txt, pat)
+                    val endTime = System.currentTimeMillis()
+                    val tiempoEjecucion = endTime - startTime
                     println(s"La cantidad de apariciones de '$pat' es: $count")
+                    guardarRegistro(nombreUsuario, filePath, pat, "Boyer Moore", count.toString, tiempoEjecucion)
                   case 2 =>
                     println("Ingrese la palabra a buscar:")
                     val palabra = scala.io.StdIn.readLine().toLowerCase()
