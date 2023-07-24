@@ -6,6 +6,7 @@ import java.io.File
 import java.io.{FileWriter, PrintWriter}
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
+import scala.io.Source
 
 object TrabajoFinal {
   // Clase para representar a un usuario
@@ -43,6 +44,21 @@ object TrabajoFinal {
     }
   }
   
+  // Función para ver el contenido de un archivo de texto
+  def verArchivoTxt(rutaArchivo: String): Unit = {
+    try {
+      val contenido = Source.fromFile(rutaArchivo).mkString
+      if (contenido.trim.nonEmpty) {
+        println(contenido)
+      } else {
+        println("El historial esta vacio, realice una busqueda primero.")
+      }
+    } catch {
+      case _: java.io.FileNotFoundException =>
+        println(s"El archivo $rutaArchivo no fue encontrado.")
+    }
+  }
+
   def main(args: Array[String]): Unit = {
     // Iniciar sesión
     val (inicioSesionExitoso, nombreUsuario) = login()
@@ -67,12 +83,13 @@ object TrabajoFinal {
         var lps: Array[Int] = Array()
         var len = 0
 
-        while (opcion != 4) {
+        while (opcion != 5) {
           println("Seleccione una opcion:")
           println("1. Usar el algoritmo KMP")
           println("2. Usar el algoritmo Fuerza Bruta")
           println("3. Usar el algoritmo BoyerMoore")
-          println("4. Salir")
+          println("4. Ver historial")
+          println("5. Salir")
 
           opcion = scala.io.StdIn.readInt()
 
@@ -234,6 +251,10 @@ object TrabajoFinal {
                 println()
               }
             case 4 =>
+              println("Mostrando historial:")
+              val rutaHistorial = "C:/Users/USER/Desktop/GitHuuuub/LP---Trabajo-Final/demo/historial.txt"
+              verArchivoTxt(rutaHistorial)
+            case 5 =>
               println("Saliendo del programa...")
             case _ =>
               println("Opcion invalida. Por favor, seleccione una opcion valida.")
