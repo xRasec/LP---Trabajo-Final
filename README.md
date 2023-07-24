@@ -1,4 +1,4 @@
-# LP---Trabajo-Final
+# LP--Trabajo-Final
 
 Este proyecto se centra en el paradigma funcional y para ello, se utilizaron tres ejemplos de algoritmos para realizar búsqueda de patrones de texto. Los códigos están ubicados en la carpeta demo\src y se describen a continuación.
 
